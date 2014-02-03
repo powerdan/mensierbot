@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,8 +109,8 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-        public void setNo(String user, String datum, String zeit) {
+
+    public void setNo(String user, String datum, String zeit) {
         try {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM times WHERE user = ? AND day = ? AND time = ?;");
             stmt.setString(1, user);
@@ -121,8 +122,8 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-                public void setNoAlle(String user, String datum) {
+
+    public void setNoAlle(String user, String datum) {
         try {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM times WHERE user = ? AND day = ?;");
             stmt.setString(1, user);
@@ -132,5 +133,43 @@ public class DB {
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public List<String> getAdmins() {
+        List<String> ret = new ArrayList<String>();
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE isAdmin = 1;");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                ret.add(rs.getString("username"));
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+
+    public List<String> getReminder() {
+        List<String> ret = new ArrayList<String>();
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE wantsReminder = 1;");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                ret.add(rs.getString("username"));
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
 }

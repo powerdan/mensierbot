@@ -23,9 +23,11 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class Bot {
 
+    private final String codename = "rabbit nom noms carrots";
+    
     private void tweet(Twitter twitter, String tweet) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String tweetEnd = "(Stand " + sdf.format(new Date()) + ")";
+        String tweetEnd = " (Stand " + sdf.format(new Date()) + ")";
         tweet += tweetEnd;
         try {
             while (tweet.length() > 140) {
@@ -45,24 +47,19 @@ public class Bot {
         }
     }
 
-    public void runBot() {
-        List<String> admins = new ArrayList<String>();
-        admins.add("powerdan");
-        admins.add("Sina_Colada");
-        admins.add("johnassel");
-        admins.add("laborkoller");
-        admins.add("Rimgar_");
-        admins.add("johnassel");
-
+    public void runBot(String user) {
+        
         System.setProperty("twitter4j.loggerFactory", "twitter4j.internal.logging.NullLoggerFactory");
         //String botUsername = "mensierbdev";
-        String botUsername = "MensierBot";
+        String botUsername = user;
         
         System.out.println("MensierBot starting up!");
-        System.out.println("Codename: rabbit nom nom nom");
+        System.out.println("Codename: " + this.codename);
 
         DB db = new DB("data.db");
+        List<String> admins = db.getAdmins();
 
+        
         BotSettings bs = db.readSettings(botUsername);
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -108,16 +105,16 @@ public class Bot {
                         String tweet = this.processStatus(db, username, datum, text);
 
                         tweet(twitter, tweet);
-                    } else if (text.matches("(?i)status ([0-2][0-9]:?[0-5][0-9]( )?)+")) {
+                    } else if (text.matches("(?i)status .*")) {
                         String tweet = this.processStatusParameter(db, username, datum, text);
 
                         tweet(twitter, tweet);
-                    } else if (text.matches("(?i)ja ([0-2][0-9]:?[0-5][0-9]( )?)+")) {
+                    } else if (text.matches("(?i)ja .*")) {
                         String tweet = this.processJa(db, username, datum, text);
 
                         tweet(twitter, tweet);
                         postStatus = true;
-                    } else if (text.matches("(?i)nein ([0-2][0-9]:?[0-5][0-9]( )?)+")) {
+                    } else if (text.matches("(?i)nein .*")) {
 
                         String tweet = this.processNein(db, username, datum, text);
 
@@ -203,15 +200,7 @@ public class Bot {
     }
 
     private String processStatusParameter(DB db, String username, String datum, String text) {
-        List<String> toProcess = new ArrayList<String>();
-        Matcher m = Pattern.compile("[0-2][0-9]:?[0-5][0-9]").matcher(text);
-        while (m.find()) {
-            String zeit = m.group();
-            if (zeit.length() == 4) {
-                zeit = zeit.substring(0, 2) + ":" + zeit.substring(2, 4);
-            }
-            toProcess.add(zeit);
-        }
+        List<String> toProcess = this.getTime(text);
 
 
 
@@ -232,24 +221,17 @@ public class Bot {
     }
 
     private String processJa(DB db, String username, String datum, String text) {
-        Matcher m = Pattern.compile("[0-2][0-9]:?[0-5][0-9]").matcher(text);
-        while (m.find()) {
-            String zeit = m.group();
-            if (zeit.length() == 4) {
-                zeit = zeit.substring(0, 2) + ":" + zeit.substring(2, 4);
-            }
+        for(String zeit : this.getTime(text))
+        {
             db.setYes(username, datum, zeit);
         }
         return "@" + username + " Allet klar chef";
     }
 
     private String processNein(DB db, String username, String datum, String text) {
-        Matcher m = Pattern.compile("[0-2][0-9]:?[0-5][0-9]").matcher(text);
-        while (m.find()) {
-            String zeit = m.group();
-            if (zeit.length() == 4) {
-                zeit = zeit.substring(0, 2) + ":" + zeit.substring(2, 4);
-            }
+        
+        for(String zeit : this.getTime(text))
+        {
             db.setNo(username, datum, zeit);
         }
         return "@" + username + " Schade, aber schon okay!";
@@ -266,17 +248,30 @@ public class Bot {
     }
 
     private String processAuswahl(DB db, String username, String datum, String text) {
-        Matcher m = Pattern.compile("[0-2][0-9]:?[0-5][0-9]").matcher(text);
-        m.find();
-        String zeit = m.group();
-        if (zeit.length() == 4) {
-            zeit = zeit.substring(0, 2) + ":" + zeit.substring(2, 4);
-        }
+        String zeit = this.getTime(text, 1).get(0);
         
         String tweet = "@" + username + " Yay, du hast dich entschieden!";
         db.setNoAlle(username, datum);
         db.setYes(username, datum, zeit);
         
         return tweet;
+    }
+    private List<String> getTime(String text)
+    {
+        return this.getTime(text, -1);
+    }
+    private List<String> getTime(String text, int limit)
+    {
+        List<String> list = new ArrayList<String>();
+        Matcher m = Pattern.compile("[0-2][0-9]:?[0-5][0-9]").matcher(text);
+        while (m.find() && (limit==-1 || limit>=list.size())) {
+            String zeit = m.group();
+            if (zeit.length() == 4) {
+                zeit = zeit.substring(0, 2) + ":" + zeit.substring(2, 4);
+            }
+            list.add(zeit);
+        }
+        
+        return list;
     }
 }

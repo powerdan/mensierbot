@@ -9,8 +9,14 @@ package de.tech42.mensierbot;
  * @author dan
  */
 public class App {
+
     public static void main(String[] args) {
-        Bot bot = new Bot();
-        bot.runBot();
+        if (args.length != 1) {
+            System.err.println("Wrong Usage: java -jar $jar BotUserName");
+        } else {
+
+            Bot bot = new Bot();
+            bot.runBot(args[0]);
+        }
     }
 }

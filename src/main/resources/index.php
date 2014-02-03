@@ -91,6 +91,17 @@ beliebige Anzahl von Uhrzeiten angegeben werden.</td>
 </table>
 <h3>Changelog</h3>
 <ul>
+    <li>
+        <li>[03.02.2014] Codename: rabbit nom noms carrots
+            <ul>
+                <li>github eingecheckt <a href="https://github.com/xidus/mensierbot" target="_blank">https://github.com/xidus/mensierbot</a></li>
+                <li>Zeitmethode ausgelagert. Bot ist etwas toleranter bei Eingaben</li>
+                <li>Userdatenbank mit Admins und reminder erstellt</li>
+            </ul>
+        </li>
+        
+    </li>
+
     <li>[29.01.2014] Codename: rabbit nom nom nom
         <ul>
             <li>psa Befehl</li>
@@ -106,8 +117,6 @@ beliebige Anzahl von Uhrzeiten angegeben werden.</td>
 <h3>Known Bugs / ToDo / Wishlist</h3>
 <ul>
     <li>Website polieren</li>
-    <li>Code aufr&auuml;en (Insbesondere die Zeitparse Methode auslagern)</li>
-    <li>Code auf github ver&ouml;ffentlichen und auf Mitarbeit hoffen</li>
     <li>Mensaw&uuml;nsche per Web mitteilen</li>
     <li>???</li>
     <li>Weltherrschaft!</li>

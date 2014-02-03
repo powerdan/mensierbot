@@ -128,6 +128,7 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
 
     <h3>Known Bugs / ToDo / Wishlist</h3>
     <ul>
+        <li>Fehler ausgeben wenn das Argument ein unbekannter Bot ist</li>
         <li>Reminder</li>
         <li>Website polieren</li>
         <li>Mensaw&uuml;nsche per Web mitteilen</li>

@@ -4,6 +4,7 @@
  */
 package de.tech42.mensierbot;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,4 +14,5 @@ import java.util.Map;
  * @author dan
  */
 class MensaZeit extends HashMap<String, List<String>> {
+
 }

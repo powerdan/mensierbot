@@ -2,6 +2,7 @@ package de.tech42.mensierbot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
@@ -173,10 +174,19 @@ public class Bot {
         String tweet = "Mensier Status: ";
         boolean somethingWritten = false;
         int cnt = 0;
+        List<String> data = new ArrayList<String>();
         for (Map.Entry<String, List<String>> entry : mz.entrySet()) {
+            data.add(entry.getKey());
+        }
+        
+        Collections.sort(data);
+        
+        for(String time : data)
+        {
+            List<String> entry = mz.get(time);
             cnt++;
             somethingWritten = true;
-            tweet += entry.getKey() + " [" + entry.getValue().size() + "]";
+            tweet += time + " [" + entry.size() + "]";
             if (cnt >= mz.size()) {
                 tweet += " ";
             } else {

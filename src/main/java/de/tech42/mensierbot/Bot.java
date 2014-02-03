@@ -75,7 +75,7 @@ public class Bot {
 
         long sinceId = bs.lastTweet;
         boolean stop = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("DD.MM.YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY");
         while (!stop) {
             try {
                 boolean postStatus = false;

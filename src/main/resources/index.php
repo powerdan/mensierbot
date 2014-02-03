@@ -116,6 +116,7 @@ beliebige Anzahl von Uhrzeiten angegeben werden.</td>
 
 <h3>Known Bugs / ToDo / Wishlist</h3>
 <ul>
+    <li>Reminder</li>
     <li>Website polieren</li>
     <li>Mensaw&uuml;nsche per Web mitteilen</li>
     <li>???</li>

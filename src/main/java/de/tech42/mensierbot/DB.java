@@ -172,4 +172,28 @@ public class DB {
         }
         return ret;
     }
+
+    public void setReminder(String username, int reminder) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("UPDATE users SET wantsRemider = ? WHERE username = ?;");
+            stmt.setInt(1, reminder);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setAdmin(String username, int admin) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("UPDATE users SET isAdmin = ? WHERE username = ?;");
+            stmt.setInt(1, admin);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

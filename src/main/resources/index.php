@@ -43,7 +43,7 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
                     }
                     else
                     {
-                        echo "<td>&nbsp;&</td>";
+                        echo "<td>&nbsp;</td>";
                     }
                 }
                 echo "	</tr>

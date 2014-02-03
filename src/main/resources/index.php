@@ -135,7 +135,7 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         <li>???</li>
         <li>Weltherrschaft!</li>
     </ul>
-
-    Der Bot befindet sich aktuell in einer sehr beta Phase. Vorschl&auml;ge, Kritik und Bugs bitte per twitter an @powerdan. Lust auf Bughunting? Schau in den <a href="bot.log">Botlog</a>
+<!-- der botlog ist ein feature, welche auf sulley läuft. ist nicht comittet.. daher evtl. entfernen .. -->
+    Der Bot befindet sich aktuell in einer sehr beta Phase. Vorschl&auml;ge, Kritik und Bugs bitte per twitter an @powerdan. Lust auf Bughunting? Schau in den <a href="log.php">Botlog</a>
 </body>
 </html>

@@ -109,8 +109,8 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
                     <li>github eingecheckt <a href="https://github.com/xidus/mensierbot" target="_blank">https://github.com/xidus/mensierbot</a></li>
                     <li>Zeitmethode ausgelagert. Bot ist etwas toleranter bei Eingaben</li>
                     <li>Userdatenbank mit Admins und reminder erstellt</li>
-                    <li>Sortierung eingerichtet</li>
-                    <li>Website etwas poliert und den Bug behoben, das auf der Website das Datum nicht mehr angezeigt worden ist </li>
+                    <li>Sortierung gefixt</li>
+                    <li>Website etwas poliert und den Bug behoben, das auf der Website die Daten nicht mehr angezeigt werden </li>
                 </ul>
             </li>
 

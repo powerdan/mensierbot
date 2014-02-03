@@ -2,7 +2,7 @@
 $heute = date("d.m.Y");
 
 
-$db = new SQLite3('../priv/MensierBot/data.db'); 
+$db = new SQLite3('../priv/mensierbot/data.db'); 
 
 $sql = "SELECT * FROM times WHERE day = '".$heute."' ORDER BY time ASC;";
 

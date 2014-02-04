@@ -76,7 +76,11 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
 @MensierBot ja 11:30 12:00 13:30</pre></td>
                 <td>Sagt f&uuml;r die angegebenen Uhrzeiten zu</td>
             </tr>
-
+            <tr>
+                <td>ja alle</td>
+                <td><pre>@MensierBot ja alle</pre></td>
+                <td>Sagt allen aktuell vorgeschlagenen Uhrzeiten zu.</td>
+            </tr>
             <tr>
                 <td>nein uhrzeit?</td>
                 <td><pre>@MensierBot nein 11:30
@@ -104,6 +108,12 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         </table>
         <h3>Changelog</h3>
         <ul>
+            <li>[04.02.2014] Codename: rabbit nom noms carrots hotfixed
+                <ul>
+                    <li>nein alle behoben</li>
+                    <li>ja alle implementiert</li>
+                    <li>ToDo auf GitHub Issues ausgelagert</li>
+                </ul>
             <li>[03.02.2014] Codename: rabbit nom noms carrots
                 <ul>
                     <li>github eingecheckt <a href="https://github.com/xidus/mensierbot" target="_blank">https://github.com/xidus/mensierbot</a></li>
@@ -127,15 +137,8 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
     </ul>
 
     <h3>Known Bugs / ToDo / Wishlist</h3>
-    <ul>
-        <li>Fehler ausgeben wenn das Argument ein unbekannter Bot ist</li>
-        <li>Reminder</li>
-        <li>Website polieren</li>
-        <li>Mensaw&uuml;nsche per Web mitteilen</li>
-        <li>???</li>
-        <li>Weltherrschaft!</li>
-    </ul>
-<!-- der botlog ist ein feature, welche auf sulley läuft. ist nicht comittet.. daher evtl. entfernen .. -->
+    <a href="https://github.com/xidus/mensierbot/issues">Ausgelagert auf GitHub Issues</a>
+       <!-- der botlog ist ein feature, welche auf sulley läuft. ist nicht comittet.. daher evtl. entfernen .. -->
     Der Bot befindet sich aktuell in einer sehr beta Phase. Vorschl&auml;ge, Kritik und Bugs bitte per twitter an @powerdan. Lust auf Bughunting? Schau in den <a href="log.php">Botlog</a>
 </body>
 </html>

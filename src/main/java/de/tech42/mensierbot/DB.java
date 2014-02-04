@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,6 +109,13 @@ public class DB {
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setYesAlle(String user, String datum) {
+        for(Map.Entry<String, List<String>> entry : this.getMensaZeit(datum).entrySet())
+        {
+            this.setYes(user, datum, entry.getKey());
         }
     }
 

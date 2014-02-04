@@ -24,7 +24,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class Bot {
 
-    private final String codename = "rabbit nom noms carrots";
+    private final String codename = "rabbit nom noms carrots hotfixed";
     
     private void tweet(Twitter twitter, String tweet) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -110,9 +110,19 @@ public class Bot {
                         String tweet = this.processStatusParameter(db, username, datum, text);
 
                         tweet(twitter, tweet);
-                    } else if (text.matches("(?i)ja .*")) {
+                    }  else if (text.matches("(?i)ja alle")) {
+
+                        String tweet = this.processJaAlle(db, username, datum, text);
+                        tweet(twitter, tweet);
+                        postStatus = true;
+                    }  else if (text.matches("(?i)ja .*")) {
                         String tweet = this.processJa(db, username, datum, text);
 
+                        tweet(twitter, tweet);
+                        postStatus = true;
+                    }  else if (text.matches("(?i)nein alle")) {
+
+                        String tweet = this.processNeinAlle(db, username, datum, text);
                         tweet(twitter, tweet);
                         postStatus = true;
                     } else if (text.matches("(?i)nein .*")) {
@@ -121,12 +131,7 @@ public class Bot {
 
                         tweet(twitter, tweet);
                         postStatus = true;
-                    } else if (text.matches("(?i)nein alle")) {
-
-                        String tweet = this.processNeinAlle(db, username, datum, text);
-                        tweet(twitter, tweet);
-                        postStatus = true;
-                    } else if (text.matches("(?i)psa .*")) {
+                    }else if (text.matches("(?i)psa .*")) {
                         String tweet;
 
                         if (admins.contains(username)) {
@@ -253,6 +258,12 @@ public class Bot {
         return "@" + username + " Wer nicht will der hat schon...";
     }
 
+    private String processJaAlle(DB db, String username, String datum, String text) {
+        db.setYesAlle(username, datum);
+
+        return "@" + username + " Oki doki - Du bist ganz schön flexibel.";
+    }
+    
     private String processPSA(DB db, String username, String datum, String text) {
         return text.substring(4, text.length());
     }

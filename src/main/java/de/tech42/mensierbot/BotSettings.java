@@ -8,7 +8,7 @@ package de.tech42.mensierbot;
  *
  * @author dan
  */
-class BotSettings {
+public class BotSettings {
     public String username;
     public String oAuthConsumerKey;
     public String oAuthConsumerSecret;

@@ -95,7 +95,7 @@ public class DB {
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return mz;
     }
 
@@ -111,10 +111,9 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void setYesAlle(String user, String datum) {
-        for(Map.Entry<String, List<String>> entry : this.getMensaZeit(datum).entrySet())
-        {
+        for (Map.Entry<String, List<String>> entry : this.getMensaZeit(datum).entrySet()) {
             this.setYes(user, datum, entry.getKey());
         }
     }
@@ -183,8 +182,9 @@ public class DB {
     }
 
     public void setReminder(String username, int reminder) {
+        this.createUserIfNotExists(username);
         try {
-            PreparedStatement stmt = con.prepareStatement("UPDATE users SET wantsRemider = ? WHERE username = ?;");
+            PreparedStatement stmt = con.prepareStatement("UPDATE users SET wantsReminder = ? WHERE username = ?;");
             stmt.setInt(1, reminder);
             stmt.setString(2, username);
             stmt.executeUpdate();
@@ -195,11 +195,30 @@ public class DB {
     }
 
     public void setAdmin(String username, int admin) {
+        this.createUserIfNotExists(username);
         try {
             PreparedStatement stmt = con.prepareStatement("UPDATE users SET isAdmin = ? WHERE username = ?;");
             stmt.setInt(1, admin);
             stmt.setString(2, username);
             stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void createUserIfNotExists(String username) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE username = ?;");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
+                PreparedStatement stmt2 = con.prepareStatement("INSERT INTO users (username) VALUES (?);");
+                stmt2.setString(1, username);
+                stmt2.executeUpdate();
+                stmt2.close();
+            }
+            rs.close();
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);

@@ -99,6 +99,16 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
                 <td>W&auml;hlt eine Mensazeit final aus</td>
             </tr>
             <tr>
+                <td>reminder ja</td>
+                <td><pre>@MensierBot reminder ja</pre></td>
+                <td>Aktiviert den Reminder f&uuml;r Wochentags 11:00</td>
+            </tr>
+            <tr>
+                <td>reminder nein</td>
+                <td><pre>@MensierBot reminder nein</pre></td>
+                <td>Deaktiviert den Reminder</td>
+            </tr>
+            <tr>
                 <td>psa text</td>
                 <td><pre>@MensierBot psa Heute geht es ins Sonnendeck</pre></td>
                 <td>Postet eine &ouml;ffentliche Mitteilung. (Nur f&uuml;r Admins)</td>
@@ -108,6 +118,13 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         </table>
         <h3>Changelog</h3>
         <ul>
+            <li>[05.02.2014] Codename: rabbits reminds a refactoring
+                <ul>
+                    <li>reminder Feature um 11:00 aktiviert</li>
+                    <li>Massives refactoring</li>
+                </ul>
+                
+            </li>
             <li>[04.02.2014] Codename: rabbit nom noms carrots hotfixed
                 <ul>
                     <li>nein alle behoben</li>

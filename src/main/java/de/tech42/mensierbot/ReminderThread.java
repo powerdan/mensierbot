@@ -34,8 +34,8 @@ public class ReminderThread extends Thread {
         Date target = new Date();
         long add = 0;
         
-        int targetHour = 9;
-        int targetMinute = 53;
+        int targetHour = 11;
+        int targetMinute = 0;
         int targetSecond = 0;
         
         if (now.getHours() >= targetHour && now.getMinutes() >= targetMinute && now.getSeconds() >= targetSecond) {

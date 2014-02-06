@@ -213,7 +213,7 @@ public class MensierBot extends BotCore {
         for (String zeit : this.getTime(text)) {
             db.setYes(username, datum, zeit);
         }
-        return "@" + username + " Allet klar chef";
+        return "@" + username + " Alles klar, Chef!";
     }
 
     private String processNein(DB db, String username, String datum, String text) {

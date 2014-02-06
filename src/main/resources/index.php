@@ -118,6 +118,12 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         </table>
         <h3>Changelog</h3>
         <ul>
+            <li>[06.02.2014] Codename: gibbet nimmer
+                <ul>
+                    <li>Erinnerung um 11:00 statt 09:53</li>
+                    <li>Tippfehler bei einer Meldung korrigiert (Issue #11)</li>
+                </ul>
+            </li>
             <li>[05.02.2014] Codename: rabbits reminds a refactoring
                 <ul>
                     <li>reminder Feature um 11:00 aktiviert</li>

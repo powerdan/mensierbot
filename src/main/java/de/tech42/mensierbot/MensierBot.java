@@ -258,7 +258,7 @@ public class MensierBot extends BotCore {
 
     private String processReminderNein(DB db, String username, String datum, String text) {
         String tweet = "@" + username + " Okay, Reminder deaktiviert";
-        db.setReminder(username, 1);
+        db.setReminder(username, 0);
         return tweet;
     }
 }

@@ -74,7 +74,7 @@ public class MensierBot extends BotCore {
                 String tweet = this.processStatusParameter(db, username, datum, text);
 
                 tweet(tweet);
-            } else if (text.matches("(?i)ja alle")) {
+            } else if (text.matches("(?i)ja alle.*")) {
 
                 String tweet = this.processJaAlle(db, username, datum, text);
                 tweet(tweet);

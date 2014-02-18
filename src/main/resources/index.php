@@ -121,6 +121,7 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
             <li>[18.02.2014]
                 <ul>
                     <li>Bugfix: reminder abbestellbar</li>
+                    <li>Bugfix: ja alle kann mehr anh&auml;ngen</li>
                 </ul>
             </li>
             <li>[06.02.2014] Codename: gibbet nimmer

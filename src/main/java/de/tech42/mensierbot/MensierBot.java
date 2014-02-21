@@ -36,20 +36,71 @@ public class MensierBot extends BotCore {
     }
 
     public void tweet(String tweet) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String tweetEnd = " (Stand " + sdf.format(new Date()) + ")";
-        tweet += tweetEnd;
-        while (tweet.length() > 140) {
+        // Absteigende Prio wo getrennt werden soll
+        // Das splitAtShift gibt an, an welchem Zeichen dann getrennt werden soll
+        String[] splitAtStr = {",", " "};
+        int[] splitAtShift = {1, 0};
 
-            String toTweet = tweet.subSequence(0, 140).toString();
-            String restToTweet = tweet.subSequence(141, tweet.length()).toString();
-            this.twitterBot.tweet(toTweet);
+        String mentionFor = null;
+        boolean isMention = false;
+        if (tweet.charAt(0) == '@') {
+            mentionFor = tweet.split(" ")[0].substring(1);
+            tweet = tweet.substring(mentionFor.length() + 2);
+            isMention = true;
+        }
+
+
+        int myLength = 140 - tweetEnd.length();
+        if (isMention) {
+            myLength -= (mentionFor.length() + 2);
+        }
+
+        while (tweet.length() > myLength) {
+            int splitAt = myLength;
+            int splitShift = 0;
+
+            String mySplitAt = null;
+            int idx = 0;
+            for (String s : splitAtStr) {
+                if (tweet.contains(s)) {
+                    mySplitAt = s;
+                    splitShift = splitAtShift[idx];
+                    break;
+                }
+                idx++;
+            }
+            if (mySplitAt != null) {
+                splitAt = tweet.lastIndexOf(mySplitAt);
+                System.out.println("splitAt: " + splitAt + " - myLength: " + myLength);
+
+                while (splitAt + splitShift > myLength) {
+
+                    splitAt = tweet.subSequence(0, splitAt).toString().lastIndexOf(mySplitAt);
+                }
+
+                splitAt += splitShift;
+            }
+            String toTweet = tweet.subSequence(0, splitAt).toString();
+            String restToTweet = tweet.subSequence(splitAt, tweet.length()).toString();
+
+            if (isMention) {
+                this.twitterBot.tweet("@" + mentionFor + " " + toTweet + tweetEnd);
+            } else {
+                this.twitterBot.tweet(toTweet + tweetEnd);
+            }
 
             tweet = restToTweet;
 
         }
 
-        this.twitterBot.tweet(tweet);
+        if (isMention) {
+            this.twitterBot.tweet("@" + mentionFor + " " + tweet + tweetEnd);
+        } else {
+            this.twitterBot.tweet(tweet + tweetEnd);
+        }
 
 
 
@@ -84,7 +135,7 @@ public class MensierBot extends BotCore {
 
                 tweet(tweet);
                 postStatus = true;
-            } else if (text.matches("(?i)nein alle")) {
+            } else if (text.matches("(?i)nein alle.*")) {
 
                 String tweet = this.processNeinAlle(db, username, datum, text);
                 tweet(tweet);

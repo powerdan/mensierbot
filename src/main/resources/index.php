@@ -118,6 +118,11 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         </table>
         <h3>Changelog</h3>
         <ul>
+            <li>[21.02.2014]
+                <ul>
+                    <li>Bugfix: Tweet Splitter arbeitet jetzt zuverl&auml;ssig und nimmt auf Trennung, Timestamp und Mentions R&uuml;cksicht</li>
+                </ul>
+            </li>
             <li>[18.02.2014]
                 <ul>
                     <li>Bugfix: reminder abbestellbar</li>

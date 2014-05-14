@@ -74,7 +74,6 @@ public class MensierBot extends BotCore {
             }
             if (mySplitAt != null) {
                 splitAt = tweet.lastIndexOf(mySplitAt);
-                System.out.println("splitAt: " + splitAt + " - myLength: " + myLength);
 
                 while (splitAt + splitShift > myLength) {
 

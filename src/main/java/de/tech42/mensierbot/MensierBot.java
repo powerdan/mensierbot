@@ -52,7 +52,6 @@ public class MensierBot extends BotCore {
             isMention = true;
         }
 
-
         int myLength = 140 - tweetEnd.length();
         if (isMention) {
             myLength -= (mentionFor.length() + 2);
@@ -101,8 +100,6 @@ public class MensierBot extends BotCore {
             this.twitterBot.tweet(tweet + tweetEnd);
         }
 
-
-
     }
 
     public void react(Status[] status) {
@@ -112,7 +109,6 @@ public class MensierBot extends BotCore {
         for (Status s : status) {
             String username = s.getUser().getScreenName();
             String text = s.getText();
-
 
             text = text.replaceAll("(?i)@" + this.twitterBot.getUsername() + " ", "");
 
@@ -167,6 +163,24 @@ public class MensierBot extends BotCore {
                 tweet(tweet);
             } else if (text.matches("(?i)reminder (nein|no|nope|nee|false|0|aus|off)")) {
                 String tweet = this.processReminderNein(db, username, datum, text);
+                tweet(tweet);
+            } else if (text.matches("(?i)addadmin (.*)")) {
+                String tweet;
+                if (this.admins.contains(username)) {
+                    tweet = this.processAddAdmin(db, username, datum, text);
+
+                } else {
+                    tweet = "@" + username + " Nee du lass mal...";
+                }
+                tweet(tweet);
+            } else if (text.matches("(?i)deladmin (.*)")) {
+                String tweet;
+                if (this.admins.contains(username)) {
+                    tweet = this.processDelAdmin(db, username, datum, text);
+
+                } else {
+                    tweet = "@" + username + " Nee du lass mal...";
+                }
                 tweet(tweet);
             }
         }
@@ -232,7 +246,6 @@ public class MensierBot extends BotCore {
 
     private String processStatus(DB db, String username, String datum, String text) {
 
-
         String tweet = "@" + username + " " + this.processStatusPublic(db, username, datum, text);
 
         return tweet;
@@ -240,8 +253,6 @@ public class MensierBot extends BotCore {
 
     private String processStatusParameter(DB db, String username, String datum, String text) {
         List<String> toProcess = this.getTime(text);
-
-
 
         String tweet = "@" + username + " Mensier Status: ";
         MensaZeit mz = db.getMensaZeit(datum);
@@ -309,6 +320,33 @@ public class MensierBot extends BotCore {
     private String processReminderNein(DB db, String username, String datum, String text) {
         String tweet = "@" + username + " Okay, Reminder deaktiviert";
         db.setReminder(username, 0);
+        return tweet;
+    }
+
+    private String processAddAdmin(DB db, String username, String datum, String text) {
+
+        String tweet;
+        try {
+            String user = text.split(" ")[1];
+            tweet = "@" + username + " Okay, @" + user + " ist jetzt Admin!";
+            db.setAdmin(user, 1);
+            this.admins.add(user);
+        } catch (Exception e) {
+            tweet = "@" + username + " Fehler: " + e.getClass().toString();
+        }
+        return tweet;
+    }
+     private String processDelAdmin(DB db, String username, String datum, String text) {
+
+        String tweet;
+        try {
+            String user = text.split(" ")[1];
+            tweet = "@" + username + " Okay, @" + user + " ist jetzt kein Admin mehr!";
+            db.setAdmin(user, 0);
+            this.admins.remove(user);
+        } catch (Exception e) {
+            tweet = "@" + username + " Fehler: " + e.getClass().toString();
+        }
         return tweet;
     }
 }

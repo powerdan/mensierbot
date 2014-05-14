@@ -113,7 +113,16 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
                 <td><pre>@MensierBot psa Heute geht es ins Sonnendeck</pre></td>
                 <td>Postet eine &ouml;ffentliche Mitteilung. (Nur f&uuml;r Admins)</td>
             </tr>
-
+            <tr>
+                <td>addadmin user</td>
+                <td><pre>@MensierBot addadmin powerdan</pre></td>
+                <td>F&uuml;gt einen Admin hinzu</td>
+            </tr>
+            <tr>
+                <td>deladmin user</td>
+                <td><pre>@MensierBot deladmin powerdan</pre></td>
+                <td>Entfernt einen Admin</td>
+            </tr>
 
         </table>
         <h3>Changelog</h3>
@@ -121,6 +130,7 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
             <li>[14.05.2014]
                 <ul>
                     <li>Reminder auf 10:30</li>
+                    <li>addadmin / deladmin</li>
                 </ul>
             </li>            
             <li>[21.02.2014]

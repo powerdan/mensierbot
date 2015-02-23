@@ -226,8 +226,8 @@ public class DB {
     }
     
     
-    public boolean checkForNewStatus() {
-       
+    public boolean checkForNewStatus(String username) {
+	this.lastUsedUser = username;
         try {
 
 
@@ -240,7 +240,7 @@ public class DB {
                 {
                     PreparedStatement stmt2 = con.prepareStatement("UPDATE settings SET postNewStatus = 'N' WHERE username = ?;");
                     stmt2.setString(1, this.lastUsedUser);
-                    stmt2.executeQuery();
+                    stmt2.execute();
                     
                     return true;
                 }

@@ -105,8 +105,7 @@ public class MensierBot extends BotCore {
     public void react(Status[] status) {
         boolean postStatus = false;
         String datum = sdf.format(new Date());
-        
-        if(db.checkForNewStatus())
+        if(db.checkForNewStatus(this.twitterBot.getUsername()))
         {
             postStatus = true;
         }

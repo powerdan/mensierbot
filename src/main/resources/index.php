@@ -127,6 +127,11 @@ while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         </table>
         <h3>Changelog</h3>
         <ul>
+            <li>[23.02.2015]
+                <ul>
+                    <li>Webanmeldung</li>
+                </ul>
+            </li>
             <li>[14.05.2014]
                 <ul>
                     <li>Reminder auf 10:30</li>

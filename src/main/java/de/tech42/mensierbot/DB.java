@@ -224,4 +224,33 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public boolean checkForNewStatus() {
+       
+        try {
+
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM settings WHERE username = ?;");
+            stmt.setString(1, this.lastUsedUser);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                if(rs.getString("postNewStatus").equals("Y"))
+                {
+                    PreparedStatement stmt2 = con.prepareStatement("UPDATE settings SET postNewStatus = 'N' WHERE username = ?;");
+                    stmt2.setString(1, this.lastUsedUser);
+                    stmt2.executeQuery();
+                    
+                    return true;
+                }
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

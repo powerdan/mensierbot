@@ -105,6 +105,11 @@ public class MensierBot extends BotCore {
     public void react(Status[] status) {
         boolean postStatus = false;
         String datum = sdf.format(new Date());
+        
+        if(db.checkForNewStatus())
+        {
+            postStatus = true;
+        }
 
         for (Status s : status) {
             String username = s.getUser().getScreenName();
